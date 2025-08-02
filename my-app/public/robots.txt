@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://naman-kemani.vercel.app
+
+# Sitemaps
+Sitemap: https://naman-kemani.vercel.app/sitemap.xml
