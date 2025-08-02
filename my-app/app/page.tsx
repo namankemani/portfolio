@@ -5,6 +5,7 @@ import About from "./Components/About";
 import Education from "./Components/Education";
 import Skills from "./Components/Skills";
 import ContactUs from "./Components/ContactUs";
+import ProfileCards from "./Components/ProfileCards";
 
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <About/>
       <Education/>
       <Skills/>
+      <ProfileCards/>
       <ContactUs/>
    </div>
   );

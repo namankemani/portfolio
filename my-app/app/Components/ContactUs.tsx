@@ -1,72 +1,90 @@
-"use client"
-import { useState } from "react";
-export default function ContactUs(){
-    const [formData,setFormData] = useState({
-            fullName:'',
-            email:'',
-            mobileNo: '',
-            subject: '',
-            message: ''
+"use client";
 
-        })
-    const handleChange = (e:React.ChangeEvent<HTMLInputElement |HTMLTextAreaElement>)=>{
-        setFormData({...formData,[e.target.name]:e.target.value});
-    }
+import { useForm } from "react-hook-form";
 
-    const handleSubmit = (e:React.FormEvent)=>{
-        e.preventDefault();
-        console.log("Form Submitted");
-    }
-    return(
+type ContactFormData = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+export default function ContactForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<ContactFormData>();
+
+  const onSubmit = async (data: ContactFormData) => {
+    console.log(data); // Replace with API call or EmailJS etc.
+    reset();
+    alert("Message sent!");
+  };
+
+  return (
+    <div className="w-full max-w-2xl mx-auto px-4 md:px-2 py-8">
+      <h2 className="text-5xl font-extrabold mb-6 text-center text-amber-400">Contact Me</h2>
+      <div>
         
-        <main className=" text-white my-20">
-            <h1 className="flex items-center justify-center text-5xl font-extrabold text-amber-400">Contact Me</h1>
-            <div className="w-full md:my-8 bg-cover bg-center flex items-center justify-center p-2 ">
-                
-                <div className="bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-md max-w-6xl ">
-                    <div className="flex justify-around items-centre">
-                        <form onSubmit={handleSubmit} className="space-y-4" action="sdlfkj">
-                            <input 
-                            type="text" 
-                            placeholder="Full Name" 
-                            value={formData.fullName}
-                            onChange={handleChange}
-                            className="p-2 border rounded w-full"
-                            />
-                            <input 
-                            type="email" 
-                            placeholder="E-Mail" 
-                            value={formData.fullName}
-                            onChange={handleChange}
-                            className="p-2 border rounded w-full"
-                            />
-                        </form>
-                        <form onSubmit={handleSubmit} className="space-y-4" action="sdlfkj">
-                            <input 
-                            type="text" 
-                            placeholder="Full Name" 
-                            value={formData.fullName}
-                            onChange={handleChange}
-                            className="p-2 border rounded w-full"
-                            />
-                            <input 
-                            type="text" 
-                            placeholder="Full Name" 
-                            value={formData.fullName}
-                            onChange={handleChange}
-                            className="p-2 border rounded w-full"
-                            />
-                        </form>
-                    </div>
-                    <div>
+      </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6 bg-white p-6 rounded-2xl shadow-lg"
+      >
+        {/* Name Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+          <input
+            type="text"
+            {...register("name", { required: "Name is required" })}
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="Your Name"
+          />
+          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+        </div>
 
-                    </div>
-                </div>
-            </div>
-            <div className="flex items-center justify-center ">
+        {/* Email Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input
+            type="email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: "Invalid email address",
+              },
+            })}
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="your@email.com"
+          />
+          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+        </div>
 
-            <button className="border-2 border-amber-400 text-amber-400 p-4 rounded-3xl cursor-pointer">Contact Me</button>
-            </div>
-        </main>
-    );
-} 
+        {/* Message Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+          <textarea
+            rows={5}
+            {...register("message", { required: "Message is required" })}
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="Your message..."
+          />
+          {errors.message && (
+            <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+        >
+          {isSubmitting ? "Sending..." : "Send Message"}
+        </button>
+      </form>
+    </div>
+  );
+}

@@ -9,10 +9,10 @@ export default function Navbar(){
                 <ul className="flex justify-between">
                     <li className="flex items-center space-x-2 p-2">
                         <Image
-                        src='/logo.png'
+                        src='/logo.svg'
                         alt="logo"
-                        width={25}
-                        height={25}
+                        width={35}
+                        height={35}
                         />
                         <h2>Naman <span className="font-bold"> Kemani</span></h2>
                     </li>
