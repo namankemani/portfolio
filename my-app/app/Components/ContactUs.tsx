@@ -30,7 +30,7 @@ export default function ContactForm() {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6 bg-white p-6 rounded-2xl shadow-lg"
+        className="space-y-6 bg-white text-black p-6 rounded-2xl shadow-lg"
       >
         {/* Name Field */}
         <div>

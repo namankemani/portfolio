@@ -50,7 +50,7 @@ export default function ProfileCards() {
               className="w-full  object-contain bg-gray-100 p-1"
             />
             <div className="p-4">
-              <h3 className="text-xl font-semibold flex items-center gap-2">
+              <h3 className="text-xl text-black font-semibold flex items-center gap-2">
                 {profile.name}
                 <ExternalLink className="w-4 h-4 text-gray-500" />
               </h3>
