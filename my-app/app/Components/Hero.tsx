@@ -1,9 +1,15 @@
 "use client"
 import Image from "next/image";
+import { motion } from "framer-motion";
 export default function Hero(){
     return(
         <section className="text-white flex items-center justify-center md:p-10 m-2">
-            <div className="">
+            <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-center"
+            >
                 <h1 className="md:text-6xl text-3xl font-extrabold">Hello! I'm <span className="text-amber-400">Naman Kemani</span></h1>
                 <h2 className="md:text-3xl py-2">A <span className="font-bold ">Software Development Engineer | Full Stack Developer </span></h2>
                 <div className="flex items-center justify-center md:mt-2">
@@ -18,7 +24,7 @@ export default function Hero(){
                     height={550}
                     />
                 </div>
-            </div>
+            </motion.div>
                 
 
         </section>

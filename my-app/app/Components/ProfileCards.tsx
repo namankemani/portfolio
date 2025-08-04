@@ -1,5 +1,9 @@
+"use client"
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import {useState,useEffect} from "react";
 
 type Profile = {
   name: string;
@@ -30,10 +34,21 @@ const profiles: Profile[] = [
 ];
 
 export default function ProfileCards() {
+  const {ref,inView} = useInView({triggerOnce:true,threshold:0.2})
+  const [hasAnimated,setHasAnimated] = useState(false);
+
+  useEffect(()=>{
+    if(inView) setHasAnimated(true);
+  },[inView])
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-12">
       <h2 className="text-5xl font-extrabold text-center mb-10 text-amber-400">Profile Previews</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+      <motion.div 
+        ref={ref}
+        initial={{ x: -100, opacity: 0 }}
+        animate={hasAnimated ? { x: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
         {profiles.map((profile) => (
           <a
             key={profile.name}
@@ -58,7 +73,7 @@ export default function ProfileCards() {
             </div>
           </a>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
